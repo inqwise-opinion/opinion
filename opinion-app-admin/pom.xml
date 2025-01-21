@@ -13,27 +13,32 @@
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml-schemas</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.supercsv</groupId>
 			<artifactId>super-csv</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-text</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.tuckey</groupId>
@@ -58,11 +63,27 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-jspc-maven-plugin</artifactId>
+				<version>9.4.54.v20240208</version> 
+				<executions>
+					<execution>
+						<id>jspc</id>
+						<goals>
+							<goal>jspc</goal>
+						</goals>
+						<configuration>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 	            <groupId>org.apache.maven.plugins</groupId>
 	            <artifactId>maven-war-plugin</artifactId>
 	            <version>3.4.0</version>
+	            
 	            <configuration>
-					<packagingExcludes>WEB-INF/classes/**/*</packagingExcludes>
+					<archiveClasses>true</archiveClasses>
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
@@ -80,12 +101,6 @@
 								<exclude>**/*.swf</exclude>
 								<exclude>**/*.fla</exclude>
 							</excludes>
-						</resource>
-						<resource>
-							<directory>${project.build.directory}</directory>
-							<include>/${project.artifactId}-${project.version}-classes.jar</include>
-							<targetPath>WEB-INF/lib</targetPath>
-							<filtering>false</filtering>
 						</resource>
         			</webResources>
 

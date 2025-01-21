@@ -1,12 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	id="WebApp_ID" version="2.5">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Collector" version="2.9">
 	
 	<display-name>opinion-opinion-collector</display-name>
+	<context-param>
+		<param-name>org.eclipse.jetty.jsp.precompiled</param-name>
+		<param-value>true</param-value>
+	</context-param>
+<!--	<context-param>-->
+<!--		<param-name>isLog4jAutoInitializationDisabled</param-name>-->
+<!--		<param-value>true</param-value>-->
+<!--	</context-param>	-->
+<!--	<context-param>-->
+<!--		<param-name>log4jConfiguration</param-name>-->
+<!--		<param-value>file:///Users/glassfox/git/inqwise/opinion opensource/opinion-app-collector/src/main/resources/log4j2.xml-->
+<!--</param-value>-->
+<!--	</context-param>-->
+<!--	<context-param>-->
+<!--		<param-name>log4j.refresh.interval</param-name>-->
+<!--		<param-value>120</param-value>-->
+<!--	</context-param>-->
+
+<!--	<listener>-->
+<!--		<listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>-->
+<!--	</listener>-->
+	<listener>
+    	<listener-class>com.inqwise.opinion.services.Initializer</listener-class>
+	</listener>
+	
+<!--	<filter>-->
+<!--    <filter-name>log4jServletFilter</filter-name>-->
+
+<!--<filter-class>org.apache.logging.log4j.web.Log4jServletFilter</filter-class>-->
+<!--  </filter>-->
+<!--  <filter-mapping>-->
+<!--    <filter-name>log4jServletFilter</filter-name>-->
+<!--    <url-pattern>/*</url-pattern>-->
+<!--    <dispatcher>REQUEST</dispatcher>-->
+<!--    <dispatcher>FORWARD</dispatcher>-->
+<!--    <dispatcher>INCLUDE</dispatcher>-->
+<!--    <dispatcher>ERROR</dispatcher>-->
+<!--    <dispatcher>ASYNC</dispatcher>-->
+<!--  </filter-mapping>-->
+
+
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 	<servlet>
@@ -33,7 +70,7 @@
 		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
 		<init-param>
 			<param-name>logLevel</param-name>
-			<param-value>WARN</param-value>
+			<param-value>ERROR</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>

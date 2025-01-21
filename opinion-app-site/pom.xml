@@ -84,10 +84,27 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-jspc-maven-plugin</artifactId>
+				<version>9.4.54.v20240208</version> 
+				<executions>
+					<execution>
+						<id>jspc</id>
+						<goals>
+							<goal>jspc</goal>
+						</goals>
+						<configuration>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 	            <groupId>org.apache.maven.plugins</groupId>
 	            <artifactId>maven-war-plugin</artifactId>
 	            <version>3.4.0</version>
 	            <configuration>
+					<archiveClasses>true</archiveClasses>
+					<attachClasses>true</attachClasses>
 					<packagingExcludes>WEB-INF/classes/**/*</packagingExcludes>
 					<archive>
 						<manifest>
@@ -106,12 +123,6 @@
 								<exclude>**/*.swf</exclude>
 								<exclude>**/*.fla</exclude>
 							</excludes>
-						</resource>
-						<resource>
-							<directory>${project.build.directory}</directory>
-							<include>/${project.artifactId}-${project.version}-classes.jar</include>
-							<targetPath>WEB-INF/lib</targetPath>
-							<filtering>false</filtering>
 						</resource>
         			</webResources>
 

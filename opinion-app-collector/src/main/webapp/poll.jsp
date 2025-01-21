@@ -100,7 +100,6 @@
 		    "guid" : "<%=guid%>",
 		    "guidTypeId" : <%= (guidTypeId.equals("d") ? 2 : (guidTypeId.equals("c") ? 1 : 0)) %>,
 		    "collectorUrl" : "<%=ApplicationConfiguration.Api.getUrl()%>",
-		    "collectorSecureUrl" : "<%=ApplicationConfiguration.Api.getSecureUrl()%>",
 		    "modeId" : <%= modeId %>,
 		    "themeId" : <%=themeId%>,
 		    "url" : "<%=applicationURL%>/c/2/<%=guid%>/1",

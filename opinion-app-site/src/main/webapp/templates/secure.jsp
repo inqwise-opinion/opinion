@@ -109,7 +109,7 @@ if(null != requestUrl){
 		<script type="text/javascript">
 		var startTime=(new Date).getTime();
 		var servletUrl = "<%=applicationURL%>/servlet/DataPostmaster/<%=p.getCultureCode()%>";
-		var apiUrl = "<%=ApplicationConfiguration.Api.getSecureUrl()%>/site";
+		var apiUrl = "<%=ApplicationConfiguration.Api.getUrl()%>/site";
 		
 		var jsapi = {
 			version: "5.11.0"

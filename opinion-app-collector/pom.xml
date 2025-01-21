@@ -19,6 +19,17 @@
 			<groupId>com.inqwise.opinion</groupId>
 			<artifactId>opinion-facade</artifactId>
 			<version>${project.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-slf4j2-impl</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-web</artifactId>
+			<version>2.23.1</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -26,44 +37,43 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-web</artifactId>
+			<groupId>org.infinispan</groupId>
+			<artifactId>infinispan-core</artifactId>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-jspc-maven-plugin</artifactId>
+				<version>9.4.54.v20240208</version> 
+				<executions>
+					<execution>
+						<id>jspc</id>
+						<goals>
+							<goal>jspc</goal>
+						</goals>
+						<configuration>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 	            <groupId>org.apache.maven.plugins</groupId>
 	            <artifactId>maven-war-plugin</artifactId>
 	            <version>3.4.0</version>
 	            <configuration>
-					<packagingExcludes>WEB-INF/classes/**/*</packagingExcludes>
+					<attachClasses>true</attachClasses>
+					<archiveClasses>true</archiveClasses>
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
 						</manifest>
+						<manifestEntries>
+							<Class-Path>${project.artifactId}-${project.version}.jar</Class-Path>
+						</manifestEntries>
 					</archive>
-        			<webResources>
-						<resource>
-                			<directory>${basedir}/src/main/webapp</directory>
-                			<filtering>false</filtering>
-							<excludes>
-								<exclude>**/*.psd</exclude>
-								<exclude>**/*.ai</exclude>
-								<exclude>**/*.db</exclude>
-								<exclude>**/*.rar</exclude>
-								<exclude>**/*.swf</exclude>
-								<exclude>**/*.fla</exclude>
-							</excludes>
-						</resource>
-						<resource>
-							<directory>${project.build.directory}</directory>
-							<include>/${project.artifactId}-${project.version}-classes.jar</include>
-							<targetPath>WEB-INF/lib</targetPath>
-							<filtering>false</filtering>
-						</resource>
-        			</webResources>
-
 				</configuration>
 	        </plugin>
 		</plugins>

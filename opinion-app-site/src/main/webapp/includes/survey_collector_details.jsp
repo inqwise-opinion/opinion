@@ -570,7 +570,6 @@ $(function() {
 				absoluteUrl : "<%=absoluteURL%>",
 				sourceUrl : "<%=ApplicationConfiguration.Api.getUrl()%>",
 				collectorUrl : "<%=ApplicationConfiguration.Opinion.Collector.getUrl()%>",
-				collectorSecureUrl : "<%=ApplicationConfiguration.Api.getSecureUrl()%>",
 				data : data,
 				qrCodeUrl : "<%=applicationURL%>/servlet/QRCode",
 				cint : {
