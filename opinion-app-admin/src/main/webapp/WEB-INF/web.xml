@@ -1,77 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	id="WebApp_ID" version="2.5">
-	<display-name>opinion-opinion-backoffice</display-name>
-	<welcome-file-list>
-		<welcome-file>/includes/index.jsp</welcome-file>
-	</welcome-file-list>
-	<servlet>
-		<servlet-name>DataPostmaster</servlet-name>
-		<servlet-class>com.inqwise.opinion.handlers.DataPostmaster</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>DataPostmaster</servlet-name>
-		<url-pattern>/servlet/DataPostmaster/*</url-pattern>
-	</servlet-mapping>
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+    id="WebApp_ID" version="2.5">
 
-	<listener>
-		<listener-class>com.inqwise.opinion.services.Initializer</listener-class>
-	</listener>
+    <display-name>opinion-opinion-backoffice</display-name>
 
-	<filter>
-		<filter-name>UrlRewriteFilter</filter-name>
-		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
-		<init-param>
-			<param-name>logLevel</param-name>
-			<param-value>WARN</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>UrlRewriteFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+    <!-- Set Welcome File -->
+    <welcome-file-list>
+        <welcome-file>includes/index.jsp</welcome-file>
+    </welcome-file-list>
 
-	<servlet>
-		<servlet-name>Cms</servlet-name>
-		<servlet-class>com.inqwise.opinion.handlers.Cms</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Cms</servlet-name>
-		<url-pattern>/go/cms</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<description></description>
-		<display-name>Frontdoor</display-name>
-		<servlet-name>Frontdoor</servlet-name>
-		<servlet-class>com.inqwise.opinion.handlers.Frontdoor</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Frontdoor</servlet-name>
-		<url-pattern>/frontdoor</url-pattern>
-	</servlet-mapping>
+    <!-- Prevent Directory Listing & Enable Welcome Files -->
+    <servlet>
+        <servlet-name>default</servlet-name>
+        <servlet-class>org.eclipse.jetty.servlet.DefaultServlet</servlet-class>
+        <init-param>
+            <param-name>dirAllowed</param-name>
+            <param-value>false</param-value> <!-- Prevents directory listing -->
+        </init-param>
+        <init-param>
+            <param-name>welcomeServlets</param-name>
+            <param-value>true</param-value> <!-- Enables welcome file redirection -->
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
-	<!-- Force SSL for entire site -->
-	<!-- security-constraint>
-		<web-resource-collection>
-			<web-resource-name>Entire Site</web-resource-name>
-			<url-pattern>/*</url-pattern>
-		</web-resource-collection>
-		<user-data-constraint>
-			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
-		</user-data-constraint>
-	</security-constraint-->
-	
-	<servlet>
-		<description></description>
-		<display-name>Export</display-name>
-		<servlet-name>Export</servlet-name>
-		<servlet-class>com.inqwise.opinion.handlers.ExportHandler</servlet-class>
-  	</servlet>
-  	<servlet-mapping>
-		<servlet-name>Export</servlet-name>
-		<url-pattern>/servlet/export</url-pattern>
-  	</servlet-mapping>
+    <!-- Enable JSP Processing -->
+    <servlet>
+        <servlet-name>jsp</servlet-name>
+        <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
+        <init-param>
+            <param-name>modificationTestInterval</param-name>
+            <param-value>0</param-value>
+        </init-param>
+        <load-on-startup>3</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jsp</servlet-name>
+        <url-pattern>*.jsp</url-pattern>
+    </servlet-mapping>
+
+    <!-- DataPostmaster Servlet -->
+    <servlet>
+        <servlet-name>DataPostmaster</servlet-name>
+        <servlet-class>com.inqwise.opinion.handlers.DataPostmaster</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DataPostmaster</servlet-name>
+        <url-pattern>/servlet/DataPostmaster/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- Application Listener -->
+    <listener>
+        <listener-class>com.inqwise.opinion.services.Initializer</listener-class>
+    </listener>
+
+    <!-- URL Rewrite Filter -->
+    <filter>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+        <init-param>
+            <param-name>logLevel</param-name>
+            <param-value>WARN</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Cms Servlet -->
+    <servlet>
+        <servlet-name>Cms</servlet-name>
+        <servlet-class>com.inqwise.opinion.handlers.Cms</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Cms</servlet-name>
+        <url-pattern>/go/cms</url-pattern>
+    </servlet-mapping>
+
+    <!-- Frontdoor Servlet -->
+    <servlet>
+        <servlet-name>Frontdoor</servlet-name>
+        <servlet-class>com.inqwise.opinion.handlers.Frontdoor</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Frontdoor</servlet-name>
+        <url-pattern>/frontdoor</url-pattern>
+    </servlet-mapping>
+
+    <!-- Force SSL for Entire Site (Uncomment when needed) -->
+    <!--
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Entire Site</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    -->
+
+    <!-- Export Servlet -->
+    <servlet>
+        <servlet-name>Export</servlet-name>
+        <servlet-class>com.inqwise.opinion.handlers.ExportHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Export</servlet-name>
+        <url-pattern>/servlet/export</url-pattern>
+    </servlet-mapping>
 
 </web-app>
